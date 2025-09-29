@@ -1,0 +1,18 @@
+<h2>Available Events</h2>
+<ul id="eventList"></ul>
+
+<script>
+async function loadEvents() {
+    const response = await fetch('http://127.0.0.1:5000/events');
+    const data = await response.json();
+    const eventList = document.getElementById('eventList');
+
+    data.events.forEach(event => {
+        const li = document.createElement('li');
+        li.innerText = `ID: ${event.id} | ${event.event_name} | ${event.date} ${event.time} | Venue: ${event.venue}`;
+        eventList.appendChild(li);
+    });
+}
+
+loadEvents();
+</script>

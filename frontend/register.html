@@ -1,0 +1,55 @@
+<form id="registerForm">
+    <input type="text" id="name" placeholder="Name" required><br>
+    <input type="email" id="email" placeholder="Email" required><br>
+    <input type="password" id="password" placeholder="Password" required><br>
+    <button type="submit">Register</button>
+</form>
+
+<p id="msg"></p>
+
+<script>
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const response = await fetch('http://127.0.0.1:5000/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+    });
+
+    const result = await response.json();
+    document.getElementById('msg').innerText = result.message;
+});
+</script>
+
+<form id="eventForm">
+    <input type="number" id="user_id" placeholder="Your User ID" required><br>
+    <input type="number" id="event_id" placeholder="Event ID" required><br>
+    <input type="text" id="team_name" placeholder="Team Name (Optional)"><br>
+    <button type="submit">Register for Event</button>
+</form>
+
+<p id="msg"></p>
+
+<script>
+document.getElementById('eventForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const user_id = document.getElementById('user_id').value;
+    const event_id = document.getElementById('event_id').value;
+    const team_name = document.getElementById('team_name').value;
+
+    const response = await fetch('http://127.0.0.1:5000/event_register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id, event_id, team_name })
+    });
+
+    const result = await response.json();
+    document.getElementById('msg').innerText = result.message;
+});
+</script>
